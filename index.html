@@ -12,8 +12,8 @@
 <meta name="keywords" content="Moroccan Honey, Natural Honey Morocco, Euphorbia Honey, Honeycomb Honey, Sidr Honey, Argan Oil Morocco, Cosmetic Argan Oil, Almond Amlou, Natural Cosmetics Morocco, Natural Products Morocco, Morocco Cooperative, Marrakech Ourika, Moroccan Products">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://coopnahlaahoudjine.github.io/">
-<link rel="icon" type="image/jpeg" href="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo.jpeg">
-<link rel="apple-touch-icon" href="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo.jpeg">
+<link rel="icon" type="image/png" href="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo1.png">
+<link rel="apple-touch-icon" href="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo1.png">
 <link rel="preload" as="image" href="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/16.png" fetchpriority="high">
 
 <meta property="og:type" content="website">
@@ -376,6 +376,21 @@ html[lang="ar"] .tl-step .tl-num{font-family:'Cairo',sans-serif;}
 /* ===== GALLERY MASONRY ===== */
 .masonry{columns:4 220px;column-gap:2px;}
 @media(max-width:760px){.masonry{columns:2 160px;}}
+.gal-filters{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+  margin-top:34px;margin-bottom:8px;
+}
+.gal-filter{
+  padding:10px 20px;border-radius:999px;border:1px solid var(--line);
+  background:transparent;font-size:13.5px;font-weight:600;color:var(--ink-soft);
+  transition:background .25s, color .25s, border-color .25s;
+  white-space:nowrap;
+}
+.gal-filter:hover{border-color:var(--honey-deep);color:var(--ink);}
+.gal-filter.active{background:var(--ink);border-color:var(--ink);color:#fff;}
+.masonry figure.gal-hidden{display:none;}
+.masonry figure{animation:galFadeIn .5s var(--ease);}
+@keyframes galFadeIn{from{opacity:0;transform:scale(.96);}to{opacity:1;transform:scale(1);}}
 .masonry figure{margin:0 0 2px;break-inside:avoid;position:relative;overflow:hidden;cursor:zoom-in;}
 .masonry figure img{width:100%;display:block;transition:transform .6s var(--ease), filter .4s;}
 .masonry figure:hover img{transform:scale(1.045);}
@@ -484,6 +499,70 @@ footer{background:var(--ink);color:rgba(250,246,236,.75);padding:76px 0 30px;}
   .wa-float svg{width:25px;height:25px;}
 }
 
+/* ===== AI CHAT WIDGET ===== */
+.chat-float{
+  position:fixed;
+  bottom:calc(96px + env(safe-area-inset-bottom));
+  inset-inline-end:calc(26px + env(safe-area-inset-right));
+  z-index:400;
+  width:58px;height:58px;min-width:58px;min-height:58px;aspect-ratio:1/1;border-radius:50%;
+  background:var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 10px 26px rgba(0,0,0,.25);
+  transition:transform .3s;border:none;cursor:pointer;
+  padding:0;overflow:hidden;
+}
+.chat-float:hover{transform:scale(1.08);}
+.chat-float svg{width:26px;height:26px;fill:#fff;}
+.chat-float img{display:block;width:100%;height:100%;aspect-ratio:1/1;object-fit:cover;border-radius:50%;flex-shrink:0;}
+@media(max-width:480px){
+  .chat-float{width:52px;height:52px;min-width:52px;min-height:52px;bottom:calc(80px + env(safe-area-inset-bottom));inset-inline-end:calc(18px + env(safe-area-inset-right));}
+  .chat-float svg{width:23px;height:23px;}
+}
+
+.chat-panel{
+  position:fixed;
+  bottom:calc(164px + env(safe-area-inset-bottom));
+  inset-inline-end:calc(26px + env(safe-area-inset-right));
+  z-index:450;
+  width:min(360px, calc(100vw - 32px));
+  height:min(500px, calc(100vh - 220px));
+  background:var(--cream);
+  border-radius:18px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(16px) scale(.97);opacity:0;pointer-events:none;
+  transition:transform .3s var(--ease), opacity .3s var(--ease);
+}
+.chat-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all;}
+.chat-head{
+  background:var(--ink);color:#fff;padding:16px 18px;
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+}
+.chat-head-info{display:flex;align-items:center;gap:10px;}
+.chat-head-logo{display:block;width:36px;height:36px;aspect-ratio:1/1;border-radius:50%;object-fit:cover;flex-shrink:0;}
+.chat-head strong{font-family:'Manrope',sans-serif;font-size:15px;}
+.chat-head span{display:block;font-size:12px;opacity:.7;margin-top:2px;}
+.chat-head button{color:#fff;font-size:22px;line-height:1;opacity:.8;}
+.chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;}
+.chat-msg{max-width:82%;padding:10px 13px;border-radius:14px;font-size:13.5px;line-height:1.55;}
+.chat-msg.bot{background:#fff;border:1px solid var(--line);align-self:flex-start;border-end-start-radius:3px;}
+.chat-msg.user{background:var(--honey-deep);color:#fff;align-self:flex-end;border-end-end-radius:3px;}
+.chat-msg.typing{display:flex;gap:4px;padding:13px;}
+.chat-msg.typing span{width:6px;height:6px;border-radius:50%;background:var(--ink-soft);opacity:.5;animation:chatDot 1.2s infinite;}
+.chat-msg.typing span:nth-child(2){animation-delay:.2s;}
+.chat-msg.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes chatDot{0%,60%,100%{opacity:.3;transform:translateY(0);}30%{opacity:1;transform:translateY(-3px);}}
+.chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);flex-shrink:0;background:#fff;}
+.chat-input-row input{
+  flex:1;border:1px solid var(--line);border-radius:999px;padding:10px 16px;
+  font-size:14.5px;font-family:inherit;background:var(--offwhite);
+}
+.chat-input-row button{
+  width:40px;height:40px;border-radius:50%;background:var(--ink);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.chat-input-row button svg{width:17px;height:17px;fill:#fff;}
+
 /* ===== REVEAL ANIM ===== */
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease), transform .9s var(--ease);}
 .reveal.in{opacity:1;transform:translateY(0);}
@@ -502,7 +581,7 @@ footer{background:var(--ink);color:rgba(250,246,236,.75);padding:76px 0 30px;}
 <header id="site-nav">
   <div class="wrap navbar-inner">
     <a href="#home" class="brand">
-      <img src="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo.jpeg" alt="Nahla Ahoudjine Cooperative Logo" class="brand-logo">
+      <img src="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo1.png" alt="Nahla Ahoudjine Cooperative Logo" class="brand-logo">
       <span class="brand-text">
         <span class="brand-fr">Nahla Ahoudjine</span>
         <span class="brand-ar" data-i18n="brandAr">تعاونية نحلة أحودجين</span>
@@ -540,7 +619,7 @@ footer{background:var(--ink);color:rgba(250,246,236,.75);padding:76px 0 30px;}
 <div class="mobile-panel" id="mobilePanel">
   <div class="mp-top">
     <span style="display:flex;align-items:center;gap:10px;">
-      <img src="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo.jpeg" alt="Nahla Ahoudjine Cooperative Logo" style="height:42px;width:42px;object-fit:cover;border-radius:50%;">
+      <img src="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo1.png" alt="Nahla Ahoudjine Cooperative Logo" style="height:42px;width:42px;object-fit:cover;border-radius:50%;">
       <span class="brand-fr" style="font-family:'Manrope',sans-serif;font-weight:800;font-size:18px;">Nahla Ahoudjine</span>
     </span>
     <button id="closeMobile" style="font-size:28px;padding:10px;margin:-10px;">&times;</button>
@@ -841,6 +920,14 @@ footer{background:var(--ink);color:rgba(250,246,236,.75);padding:76px 0 30px;}
       <span class="eyebrow" data-i18n="galEyebrow">لحظات من التعاونية</span>
       <h2 data-i18n="galTitle">معرض الصور</h2>
     </div>
+    <div class="gal-filters reveal" id="galFilters">
+      <button class="gal-filter active" data-filter="all" data-i18n="galFilterAll">الكل</button>
+      <button class="gal-filter" data-filter="honey" data-i18n="galFilterHoney">العسل</button>
+      <button class="gal-filter" data-filter="argan" data-i18n="galFilterArgan">الأركان</button>
+      <button class="gal-filter" data-filter="amlou" data-i18n="galFilterAmlou">أملو</button>
+      <button class="gal-filter" data-filter="cosmetics" data-i18n="galFilterCosmetics">التجميل الطبيعي</button>
+      <button class="gal-filter" data-filter="life" data-i18n="galFilterLife">من حياة التعاونية</button>
+    </div>
   </div>
   <div class="masonry reveal" id="masonryGallery">
     <!-- filled by JS -->
@@ -981,7 +1068,7 @@ footer{background:var(--ink);color:rgba(250,246,236,.75);padding:76px 0 30px;}
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo.jpeg" alt="Nahla Ahoudjine Cooperative Logo" style="height:56px;width:56px;object-fit:cover;border-radius:50%;margin-bottom:12px;">
+        <img src="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo1.png" alt="Nahla Ahoudjine Cooperative Logo" style="height:56px;width:56px;object-fit:cover;border-radius:50%;margin-bottom:12px;">
         <div class="brand-fr">Coopérative Nahla Ahoudjine</div>
         <div class="brand-ar">تعاونية نحلة أحودجين</div>
         <p class="tag" data-i18n="footerTag">منتجات طبيعية مغربية، من خيرات الأرض إلى أيديكم.</p>
@@ -1019,6 +1106,30 @@ footer{background:var(--ink);color:rgba(250,246,236,.75);padding:76px 0 30px;}
     </div>
   </div>
 </footer>
+
+<!-- AI Chat Widget -->
+<button class="chat-float" id="chatToggle" aria-label="Chat">
+  <img src="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo1.png" alt="Chat">
+</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-head-info">
+      <img class="chat-head-logo" src="https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/logo1.png" alt="Nahla Ahoudjine Cooperative Logo">
+      <div>
+        <strong data-i18n="chatTitle">مساعد التعاونية</strong>
+        <span data-i18n="chatSubtitle">اسألني عن منتجاتنا</span>
+      </div>
+    </div>
+    <button id="chatClose">&times;</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" data-i18n-placeholder="chatPlaceholder" placeholder="اكتب رسالتك...">
+    <button id="chatSend" aria-label="Send">
+      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+    </button>
+  </div>
+</div>
 
 <!-- WhatsApp floating -->
 <a href="#" class="wa-float wa-cta" aria-label="WhatsApp" target="_blank" rel="noopener">
@@ -1078,6 +1189,10 @@ const translations = {
     natureEyebrow:"الطبيعة المغربية", natureTitle:"حيث تبدأ الحكاية",
     natureText:"في بيئة طبيعية غنية، تتقاطع النباتات العطرية والأزهار والنحل والأرض المغربية لتمنح منتجاتنا طابعها الأصيل.",
     galEyebrow:"لحظات من التعاونية", galTitle:"معرض الصور",
+    galFilterAll:"الكل", galFilterHoney:"العسل", galFilterArgan:"الأركان", galFilterAmlou:"أملو", galFilterCosmetics:"التجميل الطبيعي", galFilterLife:"من حياة التعاونية",
+    chatTitle:"مساعد التعاونية", chatSubtitle:"اسألني عن منتجاتنا", chatPlaceholder:"اكتب رسالتك...",
+    chatGreeting:"مرحبًا! أنا مساعد تعاونية نحلة أحودجين. كيف يمكنني مساعدتك اليوم؟ يمكنك سؤالي عن العسل، زيت الأركان، أملو اللوز، أو مستحضرات التجميل الطبيعية.",
+    chatError:"عذرًا، حدث خطأ في الاتصال. يمكنك التواصل معنا مباشرة عبر واتساب.",
     featEyebrow:"مختارات", featTitle:"منتجاتنا المختارة", featLink:"التفاصيل ↗",
     whyEyebrow:"لماذا نحن", whyTitle:"لماذا تختار نحلة أحودجين؟",
     why1T:"الطبيعة", why1D:"منتجات مستوحاة من خيرات الطبيعة المغربية.",
@@ -1136,6 +1251,10 @@ const translations = {
     natureEyebrow:"La nature marocaine", natureTitle:"Là où l'histoire commence",
     natureText:"Dans un environnement naturel riche, les plantes aromatiques, les fleurs, les abeilles et la terre marocaine se croisent pour donner à nos produits leur caractère authentique.",
     galEyebrow:"Moments de la coopérative", galTitle:"Galerie",
+    galFilterAll:"Tout", galFilterHoney:"Miel", galFilterArgan:"Argan", galFilterAmlou:"Amlou", galFilterCosmetics:"Cosmétique naturelle", galFilterLife:"La vie de la coopérative",
+    chatTitle:"Assistant de la coopérative", chatSubtitle:"Posez-moi vos questions", chatPlaceholder:"Écrivez votre message...",
+    chatGreeting:"Bonjour ! Je suis l'assistant de la Coopérative Nahla Ahoudjine. Comment puis-je vous aider ? Vous pouvez me poser des questions sur le miel, l'huile d'argan, l'amlou aux amandes ou les cosmétiques naturels.",
+    chatError:"Désolé, une erreur de connexion est survenue. Vous pouvez nous contacter directement via WhatsApp.",
     featEyebrow:"Sélection", featTitle:"Nos produits phares", featLink:"Détails ↗",
     whyEyebrow:"Pourquoi nous", whyTitle:"Pourquoi choisir Nahla Ahoudjine ?",
     why1T:"La nature", why1D:"Des produits inspirés des bienfaits de la nature marocaine.",
@@ -1194,6 +1313,10 @@ const translations = {
     natureEyebrow:"Moroccan Nature", natureTitle:"Where the Story Begins",
     natureText:"In a rich natural environment, aromatic plants, flowers, bees, and Moroccan soil come together to give our products their authentic character.",
     galEyebrow:"Moments from the cooperative", galTitle:"Gallery",
+    galFilterAll:"All", galFilterHoney:"Honey", galFilterArgan:"Argan", galFilterAmlou:"Amlou", galFilterCosmetics:"Natural Cosmetics", galFilterLife:"Cooperative Life",
+    chatTitle:"Cooperative Assistant", chatSubtitle:"Ask me about our products", chatPlaceholder:"Type your message...",
+    chatGreeting:"Hello! I'm the Nahla Ahoudjine Cooperative assistant. How can I help you today? Ask me about our honey, argan oil, almond amlou, or natural cosmetics.",
+    chatError:"Sorry, a connection error occurred. You can reach us directly on WhatsApp.",
     featEyebrow:"Selection", featTitle:"Our Featured Products", featLink:"Details ↗",
     whyEyebrow:"Why Us", whyTitle:"Why Choose Nahla Ahoudjine?",
     why1T:"Nature", why1D:"Products inspired by the gifts of Moroccan nature.",
@@ -1224,6 +1347,11 @@ function applyLang(lang){
   document.querySelectorAll("[data-i18n]").forEach(el=>{
     const key = el.getAttribute("data-i18n");
     if(dict[key] !== undefined) el.textContent = dict[key];
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+    const key = el.getAttribute("data-i18n-placeholder");
+    if(dict[key] !== undefined) el.setAttribute("placeholder", dict[key]);
   });
 
   document.querySelectorAll(".lang-switch button").forEach(btn=>{
@@ -1278,40 +1406,62 @@ revealEls.forEach(el=> io.observe(el));
 
 /* ================= GALLERY MASONRY + LIGHTBOX ================= */
 const galleryImages = [
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/1.jpg", alt:"زيت الأركان التجميلي"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/2.png", alt:"العمل الليلي في المنحل"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/3.png", alt:"نحلة على نبتة عصارية"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/4.png", alt:"الطبيعة المغربية"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/5.png", alt:"المنحل"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/6.png", alt:"متجر المنتجات التقليدية"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/7.png", alt:"Tabrima Royal Au Nila"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/8.png", alt:"Gloss Akar Fassi"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/9.png", alt:"ماسك الوجه بالعكر الفاسي"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/10.png", alt:"مجموعة العسل"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/11.png", alt:"عسل الخلوي"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/12.png", alt:"عسل الدغموس"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/13.jpeg", alt:"زيت الأركان Argan Mogador"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/14.png", alt:"عسل السدر"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/15.png", alt:"تحضير أملو باللوز"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/16.png", alt:"أملو باللوز"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/17.png", alt:"امرأة بقفطان مغربي تتذوق أملو باللوز"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/18.jpg", alt:"ثمار اللوز على الشجرة"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/19.webp", alt:"ثمار الأركان على الشجرة"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/20.jpg", alt:"شجرة الأركان"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/22.jpg", alt:"شمع وعسل"},
-  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/23.jpg", alt:"من منتجات تعاونية نحلة أحودجين"}
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/1.jpg", alt:"زيت الأركان التجميلي", cat:"argan"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/2.png", alt:"العمل الليلي في المنحل", cat:"life"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/3.png", alt:"نحلة على نبتة عصارية", cat:"life"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/4.png", alt:"الطبيعة المغربية", cat:"life"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/5.png", alt:"المنحل", cat:"life"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/6.png", alt:"متجر المنتجات التقليدية", cat:"life"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/7.png", alt:"Tabrima Royal Au Nila", cat:"cosmetics"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/8.png", alt:"Gloss Akar Fassi", cat:"cosmetics"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/9.png", alt:"ماسك الوجه بالعكر الفاسي", cat:"cosmetics"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/10.png", alt:"مجموعة العسل", cat:"honey"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/11.png", alt:"عسل الخلوي", cat:"honey"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/12.png", alt:"عسل الدغموس", cat:"honey"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/13.jpeg", alt:"زيت الأركان Argan Mogador", cat:"argan"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/14.png", alt:"عسل السدر", cat:"honey"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/15.png", alt:"تحضير أملو باللوز", cat:"amlou"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/16.png", alt:"أملو باللوز", cat:"amlou"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/17.png", alt:"امرأة بقفطان مغربي تتذوق أملو باللوز", cat:"amlou"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/18.jpg", alt:"ثمار اللوز على الشجرة", cat:"amlou"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/19.webp", alt:"ثمار الأركان على الشجرة", cat:"argan"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/20.jpg", alt:"شجرة الأركان", cat:"argan"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/22.jpg", alt:"شمع وعسل", cat:"honey"},
+  {src:"https://coopnahlaahoudjine.github.io/Coop-rative-Nahla-Ahoudjine/23.jpg", alt:"من منتجات تعاونية نحلة أحودجين", cat:"life"}
 ];
 
 const masonry = document.getElementById("masonryGallery");
 galleryImages.forEach((img, i)=>{
   const fig = document.createElement("figure");
+  fig.setAttribute("data-cat", img.cat);
   fig.innerHTML = `<img src="${img.src}" loading="lazy" alt="${img.alt}" data-idx="${i}">`;
   masonry.appendChild(fig);
+});
+
+const galFilters = document.getElementById("galFilters");
+let activeFilter = "all";
+function applyGalleryFilter(){
+  masonry.querySelectorAll("figure").forEach(fig=>{
+    const match = activeFilter === "all" || fig.getAttribute("data-cat") === activeFilter;
+    fig.classList.toggle("gal-hidden", !match);
+  });
+}
+galFilters.addEventListener("click", (e)=>{
+  const btn = e.target.closest(".gal-filter");
+  if(!btn) return;
+  activeFilter = btn.getAttribute("data-filter");
+  galFilters.querySelectorAll(".gal-filter").forEach(b=> b.classList.toggle("active", b === btn));
+  applyGalleryFilter();
 });
 
 const lightbox = document.getElementById("lightbox");
 const lbImg = document.getElementById("lbImg");
 let lbIndex = 0;
+
+function getVisibleIndices(){
+  if(activeFilter === "all") return galleryImages.map((_, i)=> i);
+  return galleryImages.reduce((acc, img, i)=>{ if(img.cat === activeFilter) acc.push(i); return acc; }, []);
+}
 
 function openLightbox(idx){
   lbIndex = idx;
@@ -1321,7 +1471,10 @@ function openLightbox(idx){
 }
 function closeLightbox(){ lightbox.classList.remove("open"); }
 function showNext(dir){
-  lbIndex = (lbIndex + dir + galleryImages.length) % galleryImages.length;
+  const visible = getVisibleIndices();
+  const pos = visible.indexOf(lbIndex);
+  const nextPos = (pos + dir + visible.length) % visible.length;
+  lbIndex = visible[nextPos];
   lbImg.src = galleryImages[lbIndex].src;
   lbImg.alt = galleryImages[lbIndex].alt;
 }
@@ -1359,6 +1512,87 @@ document.getElementById("contactForm").addEventListener("submit", function(e){
 
   const text = lines.filter(Boolean).join("\n");
   window.open(`https://wa.me/${WA_PHONE}?text=${encodeURIComponent(text)}`, "_blank");
+});
+
+/* ================= AI CHAT WIDGET ================= */
+/* IMPORTANT: replace with your deployed Cloudflare Worker URL after `wrangler deploy` */
+const CHAT_WORKER_URL = "https://coopnahlaahoudjine.cooperativenahlaahoudjine.workers.dev";
+
+const chatToggle = document.getElementById("chatToggle");
+const chatPanel = document.getElementById("chatPanel");
+const chatClose = document.getElementById("chatClose");
+const chatBody = document.getElementById("chatBody");
+const chatInput = document.getElementById("chatInput");
+const chatSend = document.getElementById("chatSend");
+
+let chatHistory = [];
+let chatGreeted = false;
+
+function addChatMessage(role, text){
+  const div = document.createElement("div");
+  div.className = `chat-msg ${role === "user" ? "user" : "bot"}`;
+  div.textContent = text;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+  return div;
+}
+
+function showTyping(){
+  const div = document.createElement("div");
+  div.className = "chat-msg bot typing";
+  div.innerHTML = "<span></span><span></span><span></span>";
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+  return div;
+}
+
+function openChat(){
+  chatPanel.classList.add("open");
+  if(!chatGreeted){
+    addChatMessage("bot", translations[currentLang].chatGreeting);
+    chatGreeted = true;
+  }
+  chatInput.focus();
+}
+function closeChat(){ chatPanel.classList.remove("open"); }
+
+chatToggle.addEventListener("click", ()=>{
+  chatPanel.classList.contains("open") ? closeChat() : openChat();
+});
+chatClose.addEventListener("click", closeChat);
+
+async function sendChatMessage(){
+  const text = chatInput.value.trim();
+  if(!text) return;
+  addChatMessage("user", text);
+  chatHistory.push({ role: "user", content: text });
+  chatInput.value = "";
+
+  const typingEl = showTyping();
+
+  try{
+    const res = await fetch(CHAT_WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: chatHistory })
+    });
+    const data = await res.json();
+    typingEl.remove();
+    if(data.reply){
+      addChatMessage("bot", data.reply);
+      chatHistory.push({ role: "assistant", content: data.reply });
+    } else {
+      addChatMessage("bot", translations[currentLang].chatError);
+    }
+  } catch(err){
+    typingEl.remove();
+    addChatMessage("bot", translations[currentLang].chatError);
+  }
+}
+
+chatSend.addEventListener("click", sendChatMessage);
+chatInput.addEventListener("keydown", (e)=>{
+  if(e.key === "Enter") sendChatMessage();
 });
 
 /* Desktop nav CTA shown from md breakpoint up */
